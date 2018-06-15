@@ -1,0 +1,128 @@
+/**
+ * Project specific styling.
+ */
+
+.districts_ca {
+    fill:red;
+}
+
+svg {
+ z-index:-1
+}
+
+#scroll {
+  display:block;
+  position: relative;
+}
+
+.scroll__graphic {
+  position: absolute;
+  top: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.scroll__graphic.is-fixed {
+  position: fixed;
+}
+
+.scroll__graphic.is-bottom {
+  bottom: 0;
+  top: auto;
+}
+
+.scroll__text {
+  max-width: 30rem;
+  padding-top:200px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.step {
+  opacity: 0;
+  padding: 1rem;
+}
+
+.step.is-active {
+  opacity: 1;
+}
+
+.step p {
+  font-family:'Benton Sans';
+  font-size:0.9em;
+  position:relative;
+  background-color:white;
+  padding:20px 20px 20px 20px;
+  max-width:525px;
+}
+
+
+section p {
+  font-family:'Benton Sans';
+  font-size:0.9em;
+}
+
+a:hover {
+  color:#036;
+}
+
+.elex-header {
+  text-align: center;
+  max-width: 825px;
+}
+
+.elex-header h1 {
+  padding-top: 0.3em;
+  line-height: 1.1em;
+}
+
+.elex-header h5, .elex-header h5 span {
+  text-transform: uppercase;
+  font-size: .9em;
+  letter-spacing: .08em;
+  padding-top: 40px;
+}
+
+.elex-header h5 span{
+  font-size: .96em;
+  letter-spacing: .1em;
+}
+
+.elex-header h5 span,
+.elex-header .byline {
+  font-weight: bold;
+}
+
+.elex-header .byline span {
+  font-weight: normal;
+}
+
+section.body {
+  padding-top: 30px;
+  margin-bottom: 45px;
+  max-width: 525px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#map-zoomer {
+  margin-top:20px;
+}
+
+.districts {
+  fill: whitesmoke;
+  stroke: black;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.nation-border {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
