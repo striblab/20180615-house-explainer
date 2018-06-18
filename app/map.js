@@ -5,7 +5,7 @@ import us from '../sources/districts-albers-d3.json';
 class Map { 
 
   constructor(target) {
-    this.svg = d3.select(target);
+    this.svg = d3.select(target + " svg");
     this.g = this.svg.append("g");
     this.zoomed = false;
   }

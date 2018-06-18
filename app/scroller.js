@@ -85,13 +85,13 @@ class ScrollyGraphic {
 
     // First transition (highlight national districts)
     if (response.index == 1) {
-      map._color_districts(COMPETITIVE_DISTRICTS, 'green');
+      map._color_districts(COMPETITIVE_DISTRICTS, '#8b62a8');
     }
 
     // Second transition (highlight CA and MN)
     if (response.index == 3) {
       map._reset_colors();
-      map._color_districts(['2701', '2708', '2702', '2703', '0610', '0625', '0639', '0638'], 'green');
+      map._color_districts(['2701', '2708', '2702', '2703', '0610', '0625', '0639', '0638'], '#8b62a8');
     }
 
     // Third transition (Zoom to MN and highlight blue)
