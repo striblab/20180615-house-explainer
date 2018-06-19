@@ -153,7 +153,7 @@ class Map {
         .attr("d", path(topojson.mesh(us, us.objects.nation)));
 
     // function sizeChange() {
-    //     d3.select("g").attr("transform", "scale(" + $(self.target).width()/900 + ")");
+    //     d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
     //     $(self.target + " svg").height($(self.target).width()*0.618);
     // }
 
