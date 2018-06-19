@@ -2,6 +2,33 @@ import * as d3 from 'd3';
 import * as topojson from "topojson";
 import us from '../sources/districts-albers-d3.json';
 
+// Should just mark these in topojson, but putting them here for now
+const COMPETITIVE_DISTRICTS = [
+  '2701', // Minnesota
+  '2708',
+  '2702',
+  '2703',
+  '0610', // California
+  '0625',
+  '0639',
+  '0638',
+  '0806', // Colorado
+  '1226', // Florida
+  '1901', // Iowa
+  '1706', // Illinois
+  '1712',
+  '2611', // Michigan
+  '3407', // New Jersey
+  '3619', // New York
+  '3622',
+  '3912', // Ohio
+  '4201', // Pennsylvania
+  '4217',
+  '4807', // Texas
+  '5110', // Virginia
+  '5308' // Washington
+];
+
 class Map { 
 
   constructor(target) {
@@ -48,7 +75,7 @@ class Map {
   _reset_colors() {
     // Resets colors to no fill
     this.g.selectAll('.districts path')
-      .style("fill", 'none')
+      .style("fill", '#DCDCDC')
   }
 
   _color_districts(district_list, color) {
@@ -57,6 +84,51 @@ class Map {
       .filter(function(d) { return district_list.indexOf(d.properties.GEOID) >= 0; })
       .style("fill", color)
   }
+
+  do_step_1() {
+    var self = this;
+    self._color_districts(COMPETITIVE_DISTRICTS, '#8b62a8');
+  }
+
+  undo_step_1() {
+    var self = this;
+    self._reset_colors();
+  }
+
+  do_step_2() {
+    var self = this;
+    self._reset_colors();
+    self._zoom_to_mn();
+    self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
+  }
+
+  undo_step_2() {
+    var self = this;
+    self._zoom_out();
+    self.do_step_1();
+  }
+
+  do_step_3() {
+    var self = this;
+    self._reset_colors();
+    self._color_districts(['2701', '2708'], '#0258A0');
+  }
+
+  undo_step_3() {
+    var self = this;
+    self.do_step_2();
+  }
+
+  do_step_4() {
+    var self = this;
+    self._color_districts(['2702', '2703'], '#C0272D');
+  }
+
+  undo_step_4() {
+    var self = this;
+    self.do_step_3();
+  }
+
 
   render() {
     var self = this;

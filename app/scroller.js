@@ -14,33 +14,6 @@ const chart = graphic.select('.chart');
 const text = container.select('.scroll__text');
 const step = text.selectAll('.step');
 
-// Should just mark these in topojson, but putting them here for now
-const COMPETITIVE_DISTRICTS = [
-  '2701', // Minnesota
-  '2708',
-  '2702',
-  '2703',
-  '0610', // California
-  '0625',
-  '0639',
-  '0638',
-  '0806', // Colorado
-  '1226', // Florida
-  '1901', // Iowa
-  '1706', // Illinois
-  '1712',
-  '2611', // Michigan
-  '3407', // New Jersey
-  '3619', // New York
-  '3622',
-  '3912', // Ohio
-  '4201', // Pennsylvania
-  '4217',
-  '4807', // Texas
-  '5110', // Virginia
-  '5308' // Washington
-];
-
 // Most ScrollyGraphic code is lightly modified boilerplate from here:
 // https://pudding.cool/process/introducing-scrollama/
 
@@ -83,34 +56,42 @@ class ScrollyGraphic {
         return i === response.index;
     })
 
-    // First transition (highlight national districts)
-    if (response.index == 1) {
-      map._color_districts(COMPETITIVE_DISTRICTS, '#8b62a8');
+    if (response.index == 0 && response.direction == 'up' ) {
+      map.undo_step_1();
+    }
+
+    // First transition (highlight competitive states)
+    if (response.index == 1 ) {
+      if (response.direction == 'down') {
+        map.do_step_1();
+      } else {
+        map.undo_step_2();
+      }
     }
 
     // Second transition (highlight CA and MN)
-    if (response.index == 3) {
-      map._reset_colors();
-      map._color_districts(['2701', '2708', '2702', '2703', '0610', '0625', '0639', '0638'], '#8b62a8');
-    }
-
-    // Third transition (Zoom to MN and highlight blue)
-    if (response.index == 5) {
-      map._reset_colors();
-
-      // Handle zoom
-      if (map.zoomed == false) {
-        map._zoom_to_mn();
-        map._color_districts(['2701', '2708'], '#0258A0');
+    if (response.index == 3 ) {
+      if (response.direction == 'down') {
+        map.do_step_2();
       } else {
-        map._zoom_out();
+        map.undo_step_3();
       }
-
     }
 
-    // Final transition (highlight red MN districts)
-    if (response.index == 7) {
-      map._color_districts(['2702', '2703'], '#C0272D');
+    // Third transition (highlight D districts)
+    if (response.index == 5 ) {
+      if (response.direction == 'down') {
+        map.do_step_3();
+      } else {
+        map.undo_step_4();
+      }
+    }
+
+    // Final transition (highlight R districts)
+    if (response.index == 7 ) {
+      if (response.direction == 'down') {
+        map.do_step_4();
+      }
     }
   }
 
