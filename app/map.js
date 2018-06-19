@@ -32,6 +32,7 @@ const COMPETITIVE_DISTRICTS = [
 class Map { 
 
   constructor(target) {
+    this.target = target;
     this.svg = d3.select(target + " svg");
     this.g = this.svg.append("g");
     this.zoomed = false;
@@ -135,6 +136,9 @@ class Map {
 
     var path = d3.geoPath();
 
+    //resize trigger
+    // d3.select(window).on("resize", sizeChange);
+
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
     self.g.append("g")
         .attr("class", "districts")
@@ -147,6 +151,14 @@ class Map {
     self.g.append("path")
         .attr("class", "nation-border")
         .attr("d", path(topojson.mesh(us, us.objects.nation)));
+
+    // function sizeChange() {
+    //     d3.select("g").attr("transform", "scale(" + $(self.target).width()/900 + ")");
+    //     $(self.target + " svg").height($(self.target).width()*0.618);
+    // }
+
+    // sizeChange();
+
   }
 }
 

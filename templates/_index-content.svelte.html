@@ -16,7 +16,7 @@
 
     <section id="scroll">
       <div class="scroll__graphic">
-        <div id="map-zoomer"><svg width="960" height="500"></svg></div>
+          <div id="map-zoomer"><svg width="960" height="500"></svg></div>
       </div>
       <div class="scroll__text" id="map-sections">
         <div class="step" data-step="1"><p>Of the 435 House seats up for election in 2018, only a small number are considered by political handicappers to be toss-ups.</p></div>
@@ -39,23 +39,113 @@
       <!-- TOSSUP RATINGS -->
     <div class="slide" id="tossups">
       <div class="chartTitle">Narrows wins yesterday, tossups today</div>
-      <div class="chatter">Comparing <span class='d4 legendary'>Clinton's win margins</span> and <span class='r4 legendary'>Trump's win margins</span> from 2016 along with the Congressional win margins for <span class='d2 legendary'>DFL</span> and <span class='r2 legendary'>GOP</span> representatives helps reveal which House races are 2018 tossups.</div>
+      <div class="chatter">Shows how Minnesota's House races have been rated for 2018 by various election forecasting outlets.</div>
 
-        <div id="chartRatings" class="chart table adjacent">
-          <div class="row"><div class="column prez">Open DFL</div><div class="column">MN1</div><div class="column d1">Tossup</div></div>
-          <div class="row"><div class="column prez">Open DFL</div><div class="column">MN8</div><div class="column d1">Tossup</div></div>
-          <div class="row"><div class="column prez">Jason Lewis</div><div class="column">MN2</div><div class="column r1">Tossup</div></div>
-          <div class="row"><div class="column prez">Erik Paulsen</div><div class="column">MN3</div><div class="column r1">Tossup</div></div>
-          <div class="row"><div class="column prez">Collin Peterson</div><div class="column">MN7</div><div class="column d2">Lean</div></div>
-          <div class="row"><div class="column prez">Tom Emmer</div><div class="column">MN6</div><div class="column r4">Solid</div></div>
-          <div class="row"><div class="column prez">Betty McCollum</div><div class="column">MN4</div><div class="column d4">Solid</div></div>
-          <div class="row"><div class="column prez">Open DFL</div><div class="column">MN5</div><div class="column d4">Solid</div></div> 
-        </div>
-        <div class="table adjacent">
-          <div class="chart" id="chartCompare"></div>
+        <div id="chartRatings" class="chart">
+            <div class="table">
+                  <div class="th row">
+                        <div class="column">District</div>
+                        <div class="column">CPVI</div>
+                        <div class="column incumbent">Incumbent</div>
+                        <div class="column margin">Last Margin</div>
+                        <div class="column">Cook</div>
+                        <div class="column">IE</div>
+                        <div class="column">Sabato</div>
+                        <div class="column">CNN</div>
+                        <div class="column">RCP</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN1</div>
+                        <div class="column r1">R+5</div>
+                        <div class="column d1 incumbent">Open DFL</div>
+                        <div class="column margin">50.3%</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN8</div>
+                        <div class="column r1">R+4</div>
+                        <div class="column d1 incumbent">Open DFL</div>
+                        <div class="column margin">50.2%</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN2</div>
+                        <div class="column r1">R+2</div>
+                        <div class="column r4 incumbent">Jason Lewis</div>
+                        <div class="column margin">47.0%</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN3</div>
+                        <div class="column d1">D+1</div>
+                        <div class="column r4 incumbent">Erik Paulsen</div>
+                        <div class="column margin">56.7%</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column r1">Lean R</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                        <div class="column gray3">Tossup</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN7</div>
+                        <div class="column r3">R+12</div>
+                        <div class="column d4 incumbent">Collin Peterson</div>
+                        <div class="column margin">52.5%</div>
+                        <div class="column d3">Likely D</div>
+                        <div class="column d3">Likely D</div>
+                        <div class="column d3">Likely D</div>
+                        <div class="column d3">Likely D</div>
+                        <div class="column d2">Lean D</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN6</div>
+                        <div class="column r3">R+12</div>
+                        <div class="column r4 incumbent">Tom Emmer</div>
+                        <div class="column margin">66%</div>
+                        <div class="column r4">Solid R</div>
+                        <div class="column r4">Solid R</div>
+                        <div class="column r4">Solid R</div>
+                        <div class="column r4">Solid R</div>
+                        <div class="column r4">Solid R</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN4</div>
+                        <div class="column d4">D+14</div>
+                        <div class="column d4 incumbent">Betty McCollum</div>
+                        <div class="column margin">58%</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                   </div>
+                  <div class="row">
+                        <div class="column">MN5</div>
+                        <div class="column d4">D+26</div>
+                        <div class="column d1 incumbent">Open DFL</div>
+                        <div class="column margin">69%</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                        <div class="column d4">Solid D</div>
+                   </div>
+            </div>
         </div>
 
-        <div class="byline">Source: Minnesota Secretary of State | Graphic by <a href="http://www.startribune.com/jeff-hargarten/274254381/" target="new_">Jeff Hargarten, Star Tribune</a></div>
+        <div class="byline">Source: Various election forecasters | Graphic by <a href="http://www.startribune.com/jeff-hargarten/274254381/" target="new_">Jeff Hargarten, Star Tribune</a></div>
     </div>
 
     <section class="body">
@@ -74,11 +164,11 @@
       <div class="chatter">Many CPVI scores in competitive Minnesota districts have been shifting from being more <span class='d4 legendary'>Democratic</span> to more <span class='r4 legendary'>Republican</span> between 2010 and 2018.</div>
 
       <div class="chart" id="chartCDPVI"> 
-        <div class="dw-chart chart vis-height-fixed theme-datawrapper-data vis-d3-arrow-plot js" style="width:98%;">
+          <div class="dw-chart chart vis-height-fixed theme-datawrapper-data vis-d3-arrow-plot js" style="width:98%;">
 
-            <div class="dw-chart-body bc-label-align-right bc-grid-lines" id="chart"><div class="bc-groups"><div class="bc-group"><div class="bc-group-title label" data-column="false" data-row="0,1,2,3,4,5,6,7" style="padding-left: 3.33855%;"><span></span></div><div class="bc-group-content" style="margin-top: 24px;"><div class="bc-grid" style="height: 172px; width: 96.6614%; left: 3.33855%;"><div class="bc-grid-line dw-rect" style="left: 0.679117%;"><div class="bc-grid-label label"><span>D+30</span></div></div><div class="bc-grid-line dw-rect" style="left: 17.1194%;"><div class="bc-grid-label label"><span>D+20</span></div></div><div class="bc-grid-line dw-rect" style="left: 33.5597%;"><div class="bc-grid-label label"><span>D+10</span></div></div><div class="bc-grid-line dw-rect" style="left: 50%;"><div class="bc-grid-label label"><span>EVEN</span></div></div><div class="bc-grid-line dw-rect" style="left: 66.4403%;"><div class="bc-grid-label label"><span>R+10</span></div></div><div class="bc-grid-line dw-rect" style="left: 82.8806%;"><div class="bc-grid-label label"><span>R+20</span></div></div><div class="bc-grid-line dw-rect bc-grid-line-right" style="left: 99.3209%;"><div class="bc-grid-label label"><span>R+30</span></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="0" style="width: 3.33855%;"><span>MN1</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 51.644%; right: 41.7799%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 51.644%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 58.2201%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="1" style="width: 3.33855%;"><span>MN2</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 53.2881%; right: 43.4239%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 56.5761%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 53.2881%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="2" style="width: 3.33855%;"><span>MN3</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 48.356%; right: 50%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 50%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 48.356%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="3" style="width: 3.33855%;"><span>MN4</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 26.9836%; right: 71.3724%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 28.6276%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 26.9836%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="4" style="width: 3.33855%;"><span>MN5</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 7.25523%; right: 87.8127%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 12.1873%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 7.25523%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="5" style="width: 3.33855%;"><span>MN6</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 61.5082%; right: 30.2716%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 61.5082%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 69.7284%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="6" style="width: 3.33855%;"><span>MN7</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 58.2201%; right: 30.2716%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 58.2201%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 69.7284%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="7" style="width: 3.33855%;"><span>MN8</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 45.0679%; right: 43.4239%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 45.0679%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 56.5761%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-direct-key" style="width: 96.6614%; left: 3.33855%; top: -19px;"><div class="bc-direct-key-col label align-right" data-column="y2010" data-row="-1" style="left: auto; right: 48.356%; width: 100px; text-align: right; bottom: -14px;"><span style="position: relative; left: 0px;">2010</span><i class="bc-vline">|</i></div><div class="bc-direct-key-col label align-left" data-column="y2018" data-row="-1" style="left: 58.2201%; right: auto; width: 100px; text-align: left; bottom: -14px;"><span style="position: relative; left: 0px;">2018</span><i class="bc-vline">|</i></div></div></div></div></div></div>
+              <div class="dw-chart-body bc-label-align-right bc-grid-lines" id="chart"><div class="bc-groups"><div class="bc-group"><div class="bc-group-title label" data-column="false" data-row="0,1,2,3,4,5,6,7" style="padding-left: 3.33855%;"><span></span></div><div class="bc-group-content" style="margin-top: 24px;"><div class="bc-grid" style="height: 172px; width: 96.6614%; left: 3.33855%;"><div class="bc-grid-line dw-rect" style="left: 0.679117%;"><div class="bc-grid-label label"><span>D+30</span></div></div><div class="bc-grid-line dw-rect" style="left: 17.1194%;"><div class="bc-grid-label label"><span>D+20</span></div></div><div class="bc-grid-line dw-rect" style="left: 33.5597%;"><div class="bc-grid-label label"><span>D+10</span></div></div><div class="bc-grid-line dw-rect" style="left: 50%;"><div class="bc-grid-label label"><span>EVEN</span></div></div><div class="bc-grid-line dw-rect" style="left: 66.4403%;"><div class="bc-grid-label label"><span>R+10</span></div></div><div class="bc-grid-line dw-rect" style="left: 82.8806%;"><div class="bc-grid-label label"><span>R+20</span></div></div><div class="bc-grid-line dw-rect bc-grid-line-right" style="left: 99.3209%;"><div class="bc-grid-label label"><span>R+30</span></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="0" style="width: 3.33855%;"><span>MN1</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 51.644%; right: 41.7799%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 51.644%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 58.2201%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="1" style="width: 3.33855%;"><span>MN2</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 53.2881%; right: 43.4239%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 56.5761%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 53.2881%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="2" style="width: 3.33855%;"><span>MN3</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 48.356%; right: 50%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 50%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 48.356%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="3" style="width: 3.33855%;"><span>MN4</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 26.9836%; right: 71.3724%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 28.6276%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 26.9836%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="4" style="width: 3.33855%;"><span>MN5</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-left" style="background: rgb(51, 51, 51); left: 7.25523%; right: 87.8127%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 12.1873%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 7.25523%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="5" style="width: 3.33855%;"><span>MN6</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 61.5082%; right: 30.2716%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 61.5082%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 69.7284%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="6" style="width: 3.33855%;"><span>MN7</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 58.2201%; right: 30.2716%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 58.2201%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 69.7284%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-row"><div class="bc-row-label label" data-column="district" data-row="7" style="width: 3.33855%;"><span>MN8</span></div><div class="bc-bars" style="width: 96.6614%;"><div class="bc-bar-bg"><div class="bc-arrow dw-arrow bc-arrow-right" style="background: rgb(51, 51, 51); left: 45.0679%; right: 43.4239%;"><div style="border-color: rgb(51, 51, 51);"></div></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 45.0679%; background: rgb(119, 119, 119); display: none;"></div><div class="bc-bar-inner dw-circle" style="margin-left: -5px; left: 56.5761%; background: rgb(171, 171, 171); display: none;"></div></div><div class="bc-bar-bg-line dw-line"></div></div></div><div class="bc-direct-key" style="width: 96.6614%; left: 3.33855%; top: -19px;"><div class="bc-direct-key-col label align-right" data-column="y2010" data-row="-1" style="left: auto; right: 48.356%; width: 100px; text-align: right; bottom: -14px;"><span style="position: relative; left: 0px;">2010</span><i class="bc-vline">|</i></div><div class="bc-direct-key-col label align-left" data-column="y2018" data-row="-1" style="left: 58.2201%; right: auto; width: 100px; text-align: left; bottom: -14px;"><span style="position: relative; left: 0px;">2018</span><i class="bc-vline">|</i></div></div></div></div></div></div>
 
-          </div>
+            </div>
       </div>
       <div class="axisLabel"><span class='d4 legendary'>⇦ More Democratic</span> | <span class='r3 legendary'>More Republican ⇨</span></div>
 
@@ -93,15 +183,10 @@
       <p>These factors have captured the attention of political forecasters and political fundraising operations alike, placing a greater national focus on these House races than in recent years past.</p>
       <p>Both the NRCC and the DCCC have these Minnesota races in their fundraising and advertising crosshairs, as do various PACs and Super PACs. </p>  
       <p>The big election handicappers like FiveThirtyEight, Sabato’s Crystal Ball, Cook Political Report and others universally rate these races as toss-ups.</p> 
-    </section>
 
-      <div class="slide" id="rankings">
-        <div class="chartTitle">rankings thing here?</div>
-      </div>
-
-    <section class="body">
       <p>Presidential administrations and their political parties <a href="http://www.startribune.com/will-november-bring-a-blue-wave-for-democrats-republicans-hope-tax-cut-means-no/473597813/">often suffer significant losses during midterm election years</a>, especially in the House, or so wisdom from past elections tells us.</p>
-      <p>But just how many seats the GOP loses, and whether it's enough to help Democratic fortunes, remains to be seen.</p>
+      <p>Just how many seats the GOP loses, and whether it's enough to help Democratic fortunes, remains to be seen.</p>
+      <p>What's clear though is how contentious these House races will be right up through Election Day.</p>
     </section>
 
 

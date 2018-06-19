@@ -8,7 +8,10 @@
   max-width:100%;
 }
 
-svg {
+.scroll__graphic {
+  height:auto !important;
+}
+
  z-index:-1
 }
 
@@ -164,35 +167,28 @@ section.body {
 
 
 /* Race ratings chart */
-.adjacent {
-  display:inline-block;
-  width:48%;
-  font-weight:900;
-  text-align:center;
-  vertical-align:top;
-}
+#chartRatings .table {
+     display: table;
+     width:100%;
+     text-align:center;
+ }
+ #chartRatings .row {
+     display: table-row;
+     padding: 7px !important;
+ }
+ #chartRatings .th .column {
+     font-weight:bold;
+ }
+#chartRatings .column {
+     display: table-cell;
+     vertical-align: top;
+ }
 
-.table .column {
-  display:inline-block;
-  width:20%;
-}
-
-.table .row {
-  width:100%;
-  margin-bottom:10px;
-}
-
-.table .prez {
-  display:inline-block;
-  width:60%;
-}
-
-#chartCompare {
-  height:235px !important;
-}
-
-#chartRatings {
-  font-size:0.8em;
+/* Mobile styles */
+@media (max-width:800px) {
+  #chartRatings .incumbent, #chartRatings .margin {
+    display:none !important;
+  }
 }
 
 
@@ -348,6 +344,7 @@ section.body {
 .gray3 {
   color: white !important;
   pointer-events: all;
+  font-weight: bold;
 }
 
 .mid {
@@ -424,6 +421,38 @@ section.body {
   stroke:#3f88c5;
 }
 
+/* Gray shaded ramp */
+.gray1 {
+  fill: #ddd;
+  background-color: #ddd;
+  stroke: #ddd !important;
+}
+
+.gray2 {
+  fill: #CCC;
+  background-color: #CCC;
+  stroke: #CCC !important;
+}
+
+.gray3 {
+  fill: #969696;
+  background-color: #969696;
+  stroke: #969696 !important;
+}
+
+.gray4 {
+  fill: #636363;
+  background-color: #636363;
+  color: #fff;
+  stroke: #636363 !important;
+}
+
+.gray5 {
+  fill: #252525;
+  background-color: #252525;
+  color: #fff;
+  stroke: #252525 !important;
+}
 
 /** CPVI Chart Datawrapper styles **/
 .axisLabel {
@@ -1005,7 +1034,7 @@ html[xmlns] .clearfix {
 }
 .chart.vis-d3-arrow-plot .bc-bar-bg-line.dw-line {
   border-top: 1px dotted #ddd;
-  position: relative;
+  //position: relative;
   top: -5.5px;
   left: 0;
   z-index: -4;
@@ -1188,7 +1217,7 @@ html[xmlns] .clearfix {
 }
 .chart.vis-d3-bars .bc-grid-label {
   width: 50px;
-  position: absolute;
+  //position: absolute;
   left: -24px;
   text-align: center;
   top: -18px;

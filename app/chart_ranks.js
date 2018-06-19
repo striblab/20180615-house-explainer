@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import * as c3 from 'c3';
 
 
 class BarChart { 
