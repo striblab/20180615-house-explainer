@@ -63,7 +63,7 @@ class Map {
 
     // Zoom using transitions
     this.g.transition()
-      .duration(400)
+      .duration(300)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 
     // Make the lines skinny for consistency on zoom
@@ -133,6 +133,8 @@ class Map {
 
   render() {
     var self = this;
+
+    // var projection = d3.geoAlbers().scale(1000).translate([400, 260]);
 
     var path = d3.geoPath();
 
