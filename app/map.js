@@ -76,13 +76,30 @@ class Map {
   _reset_colors() {
     // Resets colors to no fill
     this.g.selectAll('.districts path')
+      .transition()
+      .delay(750)
       .style("fill", '#DCDCDC')
+  } 
+
+  _trigger_district_labels(opacity) {
+    // Sets opacity to hide or reveal district labels
+    this.g.selectAll('.district-label')
+      .style("opacity", opacity)
+  }
+
+  _trigger_cpvi_labels(opacity) {
+    // Sets opacity to hide or reveal district labels
+    this.g.selectAll('.cpvi-label')
+      .style("opacity", opacity)
   }
 
   _color_districts(district_list, color) {
     // Changes the colors of districts based on a list of GEOIDs and a given color
     this.g.selectAll('.districts path')
       .filter(function(d) { return district_list.indexOf(d.properties.GEOID) >= 0; })
+      // .filter(function(d) { return d.properties.compete == 1; })
+      .transition()
+      .delay(750)
       .style("fill", color)
   }
 
@@ -94,6 +111,10 @@ class Map {
   undo_step_1() {
     var self = this;
     self._reset_colors();
+
+    // Always hide labels at this step
+    self._trigger_district_labels(0);
+    self._trigger_cpvi_labels(0);
   }
 
   do_step_2() {
@@ -101,6 +122,7 @@ class Map {
     self._reset_colors();
     self._zoom_to_mn();
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
+    self._trigger_district_labels(1);
   }
 
   undo_step_2() {
@@ -139,7 +161,7 @@ class Map {
     var path = d3.geoPath();
 
     //resize trigger
-    // d3.select(window).on("resize", sizeChange);
+    d3.select(window).on("resize", sizeChange);
 
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
     self.g.append("g")
@@ -147,19 +169,67 @@ class Map {
       .selectAll("path")
       .data(topojson.feature(us, us.objects.districts).features)
       .enter().append("path")
-        .attr("d", path);
+        .attr("d", path)
+        .style("stroke-width", '0.2');
 
     // Draw the national boundary separately because district mesh doesn't include it
     self.g.append("path")
         .attr("class", "nation-border")
         .attr("d", path(topojson.mesh(us, us.objects.nation)));
 
-    // function sizeChange() {
-    //     d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
-    //     $(self.target + " svg").height($(self.target).width()*0.618);
-    // }
 
-    // sizeChange();
+    // Draws district labels, present but invisible
+    self.g.selectAll("text")
+        .data(topojson.feature(us, us.objects.districts).features)
+        .enter()
+        .append("svg:text")
+        .text(function(d){
+          if (d.properties.compete == 1) { return d.properties.CD115FP; }
+        })
+        .attr("x", function(d){
+            return path.centroid(d)[0];
+        })
+        .attr("y", function(d){
+            return  path.centroid(d)[1];
+        })
+        .attr("class", "district-label")
+        .attr("text-anchor", "middle")
+        .style("fill", "#ffffff")
+        .style("opacity", 0)
+        .attr("font-size", "2pt");
+
+
+    // Draws CPVI labels, present but invisible
+    self.g.selectAll("text")
+        .data(topojson.feature(us, us.objects.districts).features)
+        .enter()
+        .append("svg:text")
+        .text(function(d){
+          if (d.properties.compete == 1) { 
+            if (d.properties.cpvi < 0) { return "D+" (d.properties.cpvi * -1); }
+            else if (d.properties.cpvi > 0) { return "R+" + d.properties.cpvi; }
+            else if (d.properties.cpvi == 0) { return "EVEN"; }
+          }
+        })
+        .attr("x", function(d){
+            return path.centroid(d)[0];
+        })
+        .attr("y", function(d){
+            return  path.centroid(d)[1];
+        })
+        .attr("class", "cpvi-label")
+        .attr("text-anchor", "middle")
+        .style("fill", "#ffffff")
+        .style("opacity", 0)
+        .attr("font-size", "2pt");
+
+
+    function sizeChange() {
+        d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
+        $(self.target + " svg").height($(self.target).width()*0.618);
+    }
+
+    sizeChange();
 
   }
 }
