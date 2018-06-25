@@ -889,7 +889,7 @@ html[xmlns] .clearfix {
   padding-top: 18px;
 }
 .charted.vis-d3-arrow-plot .bc-grid {
-  position: absolute;
+  position: static;
   top: 0;
   z-index: -10;
 }
@@ -968,7 +968,7 @@ html[xmlns] .clearfix {
   overflow: hidden;
 }
 .charted.vis-d3-arrow-plot .bc-arrow {
-  top: 50%;
+  top: 98%;
   height: 2px;
   background: #bbb;
   border-radius: 2px;
@@ -1039,11 +1039,9 @@ html[xmlns] .clearfix {
   -ms-filter: none;
 }
 .charted.vis-d3-arrow-plot .bc-bar-bg-line.dw-line {
-  border-top: 1px dotted #ddd;
-  position: relative;
-  top: -5.5px;
-  left: 0;
-  z-index: -4;
+    border-top: 1px solid #ddd !important;
+    margin-bottom: 9px;
+    z-index: -4 !important;
 }
 .charted.vis-d3-arrow-plot .bc-bars {
   position: relative;
@@ -1139,7 +1137,7 @@ html[xmlns] .clearfix {
   width: 100% !important;
 }
 .charted.vis-d3-bars .bc-bar-bg {
-  position: relative;
+  position: absolute !important;
   height: 20px;
 }
 .charted.vis-d3-bars .bc-thick .bc-bar-bg {
@@ -1211,7 +1209,7 @@ html[xmlns] .clearfix {
 }
 .charted.vis-d3-bars .bc-grid {
   position: absolute;
-  top: 0;
+  top: 10px;
   z-index: -10;
 }
 .charted.vis-d3-bars .bc-grid-line {

@@ -38,12 +38,27 @@ class Map {
     this.zoomed = false;
   }
 
-  _zoom_out() {
+  _detect_mobile() {
+    var winsize = $(window).width();
+    if (winsize < 700) { 
+      return true; 
+    } else {
+      return false;
+    }
+  }
+
+  _zoom_out(viewport) {
+    if (!viewport) {
     var x = 479.863109194,
       y = 249.799998,
-      k = 1,
-      width = this.svg.attr('width'),
-      height = this.svg.attr('height');
+      k = 1;
+    } else  {
+    var x = 479.863109194,
+      y = 249.799998,
+      k = 1;
+    }
+    var width = this.svg.attr('width');
+    var height = this.svg.attr('height');
 
     // Zoom using transitions
     this.g.transition()
@@ -53,13 +68,19 @@ class Map {
       this.zoomed = false;  
   }
 
-  _zoom_to_mn() {
+  _zoom_to_mn(viewport) {
     // Hard-coded Minnesota zoom settings
+    if (!viewport) {
     var x = 557.078993328558,
       y = 104.72218345871143,
-      k = 4,
-      width = this.svg.attr('width'),
-      height = this.svg.attr('height');
+      k = 4;
+    } else {
+    var x = 650,
+      y = 125,
+      k = 3;
+    }
+    var width = this.svg.attr('width');
+    var height = this.svg.attr('height');
 
     // Zoom using transitions
     this.g.transition()
@@ -120,14 +141,14 @@ class Map {
   do_step_2() {
     var self = this;
     self._reset_colors();
-    self._zoom_to_mn();
+    self._zoom_to_mn(self._detect_mobile());
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
     self._trigger_district_labels(1);
   }
 
   undo_step_2() {
     var self = this;
-    self._zoom_out();
+    self._zoom_out(self._detect_mobile());
     self.do_step_1();
   }
 
