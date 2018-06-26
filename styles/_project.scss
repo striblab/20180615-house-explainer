@@ -979,11 +979,11 @@ html[xmlns] .clearfix {
 }
 .charted.vis-d3-arrow-plot .bc-arrow > div {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 8px;
   border-top: 2px solid #bbb;
   border-right: 2px solid #bbb;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 .charted.vis-d3-arrow-plot .bc-color-key .bc-arrow {
   position: relative;
@@ -1044,7 +1044,7 @@ html[xmlns] .clearfix {
 .charted.vis-d3-arrow-plot .bc-bar-bg-line.dw-line {
     border-top: 1px solid #ddd !important;
     margin-bottom: 7px;
-    margin-left: 12px;
+    margin-left: 18px;
     z-index: -4 !important;
 }
 .charted.vis-d3-arrow-plot .bc-bars {

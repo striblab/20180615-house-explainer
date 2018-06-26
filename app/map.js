@@ -205,13 +205,13 @@ class Map {
         .enter()
         .append("svg:text")
         .text(function(d){
-          if (d.properties.compete == 1) { return d.properties.CD115FP; }
+          if (d.properties.compete == 1 && d.properties.STATEFP == "27") { return d.properties.CD115FP; }
         })
         .attr("x", function(d){
-            return path.centroid(d)[0];
+            return path.centroid(d)[0] - 0.8;
         })
         .attr("y", function(d){
-            return  path.centroid(d)[1];
+            return  path.centroid(d)[1] + 1.3;
         })
         .attr("class", "district-label")
         .attr("text-anchor", "middle")
