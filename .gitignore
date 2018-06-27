@@ -1,3 +1,6 @@
+archie-token.json
+sources/archie.json
+
 # Front-end app
 build/*
 config.custom.json

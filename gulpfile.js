@@ -27,6 +27,8 @@ const tasks = require('./lib/gulp-tasks.js');
 const publish = require('./lib/gulp-publish.js');
 const googleDrive = require('./lib/gulp-google-drive.js');
 
+require('./lib/gulp-archie.js');
+
 // Make default just list of tasks
 gulp.task('default', tasks.list);
 
