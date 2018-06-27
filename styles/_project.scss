@@ -112,6 +112,7 @@ section.body {
 
 #map-zoomer {
   margin-top:20px;
+  pointer-events:none !important;
 }
 
 .districts {
@@ -134,6 +135,10 @@ section.body {
   margin-left:auto;
   margin-right:auto;
 
+.chatter {
+  font-size:0.8em;
+}
+
 .byline {
     line-height:140%;
     font-family: "Benton Sans", Helvetica, Arial, sans-serif;
@@ -151,6 +156,8 @@ section.body {
 
 .tossupHighlight {
   background-color:#dddddd;
+  padding:3px;
+  width:auto !important;
 }
 
 .chartTitle {
@@ -450,6 +457,13 @@ section.body {
   font-weight:bold;
 }
 
+
+.purple1 { 
+  fill:#B191C9;
+  background-color:rgba(177,145,201,0.14); 
+  color:#fff;
+  font-weight:bold;
+}
 
 .gray5 {
   fill: #252525;
@@ -1259,6 +1273,7 @@ h1 .charted-title {
     width:100% !important;
   }
   #map-zoomer, #map-zoomer svg {
-    width:100%;
+    width:100% !important;
+    height:400px !important;
   }
 }

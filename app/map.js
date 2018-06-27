@@ -33,54 +33,83 @@ class Map {
 
   constructor(target) {
     this.target = target;
-    this.svg = d3.select(target + " svg");
+    this.svg = d3.select(target + " svg").attr("width", $(target).width()).attr("height", $(target).height());
     this.g = this.svg.append("g");
     this.zoomed = false;
   }
 
   _detect_mobile() {
     var winsize = $(window).width();
-    if (winsize < 700) { 
+
+    if (winsize < 520) { 
       return true; 
     } else {
       return false;
     }
   }
 
-  _zoom_out(viewport) {
-    if (!viewport) {
-    var x = 479.863109194,
-      y = 249.799998,
-      k = 1;
-    } else  {
-    var x = 479.863109194,
-      y = 249.799998,
-      k = 1;
-    }
+
+  _zoom_out(viewport, d, path) {
+    var x, y, k;
+    var centered;
     var width = this.svg.attr('width');
     var height = this.svg.attr('height');
+    k = 1; 
+
+    console.log(viewport);
+
+    if (viewport) { 
+      k = 0.4;
+    }
+
+  if (d && centered !== d) {
+    var centroid = path.centroid(d);
+    x = centroid[0];
+    y = centroid[1];
+    centered = d;
+  } else {
+    x = width / 2;
+    y = height / 2;
+    centered = null;
+  }
 
     // Zoom using transitions
     this.g.transition()
       .duration(400)
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")") 
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 
       this.zoomed = false;  
   }
 
-  _zoom_to_mn(viewport) {
+  _zoom_to_mn(viewport, d, path) {
     // Hard-coded Minnesota zoom settings
-    if (!viewport) {
-    var x = 557.078993328558,
-      y = 104.72218345871143,
-      k = 4;
-    } else {
-    var x = 650,
-      y = 125,
-      k = 3;
-    }
+    // if (!viewport) {
+    // var x = 557.078993328558,
+    //   y = 104.72218345871143,
+    //   k = 4;
+    // } else {
+    // var x = 650,
+    //   y = 125,
+    //   k = 3;
+    // }
+
+    var x, y, k;
+    var centered;
     var width = this.svg.attr('width');
     var height = this.svg.attr('height');
+
+   if (d && centered !== d) {
+     var centroid = path.centroid(d);
+     x = centroid[0];
+     y = centroid[1];
+     k = 3;
+     centered = d;
+   } else {
+     x = width / 2;
+     y = height / 2;
+     k = 3;
+     centered = null;
+   }
 
     // Zoom using transitions
     this.g.transition()
@@ -92,6 +121,67 @@ class Map {
       .style("stroke-width", '0.2')
 
     this.zoomed = true;
+  }
+
+  // Simulate a clicky map interaction on Minnesota instead of calling the zoom functions directly
+  _clickmn(district) {
+      //D3 CLICKY MAP BINDINGS
+      jQuery.fn.d3Click = function () {
+        this.each(function (i, e) {
+          var evt = document.createEvent("MouseEvents");
+          evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+          e.dispatchEvent(evt);
+          return false;
+        });
+      };
+
+      jQuery.fn.d3Down = function () {
+        this.each(function (i, e) {
+          var evt = document.createEvent("MouseEvents");
+          evt.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+          e.dispatchEvent(evt);
+          return false;
+        });
+      };
+
+      jQuery.fn.d3Up = function () {
+        this.each(function (i, e) {
+          var evt = document.createEvent("MouseEvents");
+          evt.initMouseEvent("mouseup", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+          e.dispatchEvent(evt);
+          return false;
+        });
+      };
+
+
+      // Your mouse clicks are actually three events, which are simulated here to auto-zoom the map on a given id of a map path object
+      $("[id='" + district + "']").d3Down();
+      $("[id='" + district + "']").d3Up();
+      $("[id='" + district + "']").d3Click();
+
+  }
+
+
+  // Simulate a clicky map interaction on the nation's center instead of calling the zoom functions directly
+  _clickus(district) {
+      //D3 CLICKY MAP BINDINGS
+      jQuery.fn.d3Mouse = function () {
+        this.each(function (i, e) {
+          var evt = document.createEvent("MouseEvents");
+          evt.initMouseEvent("mouseover", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+          e.dispatchEvent(evt);
+          return false;
+        });
+      };
+
+
+      // Your mouse clicks are actually three events, which are simulated here to auto-zoom the map on a given id of a map path object
+      $("[id='" + district + "']").d3Mouse();
+
   }
 
   _reset_colors() {
@@ -141,14 +231,16 @@ class Map {
   do_step_2() {
     var self = this;
     self._reset_colors();
-    self._zoom_to_mn(self._detect_mobile());
+    // self._zoom_to_mn(self._detect_mobile());
+    self._clickmn('MN2703');
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
     self._trigger_district_labels(1);
   }
 
   undo_step_2() {
     var self = this;
-    self._zoom_out(self._detect_mobile());
+    // self._zoom_out(self._detect_mobile());
+    self._clickus('NE3101');
     self.do_step_1();
   }
 
@@ -184,6 +276,7 @@ class Map {
     //resize trigger
     d3.select(window).on("resize", sizeChange);
 
+
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
     self.g.append("g")
         .attr("class", "districts")
@@ -191,6 +284,13 @@ class Map {
       .data(topojson.feature(us, us.objects.districts).features)
       .enter().append("path")
         .attr("d", path)
+        .attr("id", function(d) { return d.properties.statePostal + "" + d.properties.GEOID; } )
+        .on("click", function(d) { 
+          self._zoom_to_mn(self._detect_mobile(), d, path); 
+        })
+        .on("mouseover", function(d) { 
+          self._zoom_out(self._detect_mobile(), d, path); 
+        })
         .style("stroke-width", '0.2');
 
     // Draw the national boundary separately because district mesh doesn't include it
