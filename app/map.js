@@ -232,7 +232,7 @@ class Map {
     var self = this;
     self._reset_colors();
     // self._zoom_to_mn(self._detect_mobile());
-    self._clickmn('MN2703');
+    self._clickmn('MN2708');
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
     self._trigger_district_labels(1);
   }
@@ -240,7 +240,7 @@ class Map {
   undo_step_2() {
     var self = this;
     // self._zoom_out(self._detect_mobile());
-    self._clickus('NE3101');
+    self._clickus('NE3102');
     self.do_step_1();
   }
 
@@ -269,13 +269,10 @@ class Map {
   render() {
     var self = this;
 
-    // var projection = d3.geoAlbers().scale(1000).translate([400, 260]);
-
     var path = d3.geoPath();
 
     //resize trigger
     d3.select(window).on("resize", sizeChange);
-
 
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
     self.g.append("g")
