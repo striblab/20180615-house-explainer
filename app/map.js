@@ -38,6 +38,7 @@ class Map {
     this.zoomed = false;
   }
 
+  // Detect if the viewport is mobile or desktop, can be tweaked if necessary for anything in between
   _detect_mobile() {
     var winsize = $(window).width();
 
@@ -48,7 +49,7 @@ class Map {
     }
   }
 
-
+  // The zooming out interaction
   _zoom_out(viewport, d, path) {
     var x, y, k;
     var centered;
@@ -81,6 +82,7 @@ class Map {
       this.zoomed = false;  
   }
 
+  // The zooming in interaction
   _zoom_to_mn(viewport, d, path) {
     // Hard-coded Minnesota zoom settings
     // if (!viewport) {
@@ -178,7 +180,6 @@ class Map {
         });
       };
 
-
       // Your mouse clicks are actually three events, which are simulated here to auto-zoom the map on a given id of a map path object
       $("[id='" + district + "']").d3Mouse();
 
@@ -232,7 +233,7 @@ class Map {
     var self = this;
     self._reset_colors();
     // self._zoom_to_mn(self._detect_mobile());
-    self._clickmn('MN2708');
+    self._clickmn('S27'); //zoom on mn
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
     self._trigger_district_labels(1);
   }
@@ -240,7 +241,7 @@ class Map {
   undo_step_2() {
     var self = this;
     // self._zoom_out(self._detect_mobile());
-    self._clickus('NE3102');
+    self._clickus('S31');
     self.do_step_1();
   }
 
@@ -274,6 +275,22 @@ class Map {
     //resize trigger
     d3.select(window).on("resize", sizeChange);
 
+    // Draw the state boundaries separately, for targeting purposes
+    self.g.append("g")
+        .attr("class", "states")
+      .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+      .enter().append("path")
+        .attr("d", path)
+        .attr("id", function(d) { return "S" + d.properties.STATEFP; } )
+        .style("stroke-width", '0')
+        .on("click", function(d) { 
+          self._zoom_to_mn(self._detect_mobile(), d, path); 
+        })
+        .on("mouseover", function(d) { 
+          self._zoom_out(self._detect_mobile(), d, path); 
+        });
+
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
     self.g.append("g")
         .attr("class", "districts")
@@ -282,13 +299,8 @@ class Map {
       .enter().append("path")
         .attr("d", path)
         .attr("id", function(d) { return d.properties.statePostal + "" + d.properties.GEOID; } )
-        .on("click", function(d) { 
-          self._zoom_to_mn(self._detect_mobile(), d, path); 
-        })
-        .on("mouseover", function(d) { 
-          self._zoom_out(self._detect_mobile(), d, path); 
-        })
         .style("stroke-width", '0.2');
+
 
     // Draw the national boundary separately because district mesh doesn't include it
     self.g.append("path")

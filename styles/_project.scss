@@ -93,6 +93,12 @@ a:hover {
   letter-spacing: .1em;
 }
 
+.states {
+  fill:none !important;
+  pointer-events:none !important;
+  fill-opacity:0 !important;
+}
+
 .elex-header h5 span,
 .elex-header .byline {
   font-weight: bold;
