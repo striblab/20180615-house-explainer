@@ -233,7 +233,7 @@ class Map {
     var self = this;
     self._reset_colors();
     // self._zoom_to_mn(self._detect_mobile());
-    self._clickmn('S27'); //zoom on mn
+    self._clickmn('S27'); //zoom on MN
     self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
     self._trigger_district_labels(1);
   }
@@ -241,7 +241,8 @@ class Map {
   undo_step_2() {
     var self = this;
     // self._zoom_out(self._detect_mobile());
-    self._clickus('S31');
+    if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
+    else { self._clickus('S31'); } //zoom on NE, if desktop
     self.do_step_1();
   }
 
