@@ -4,10 +4,17 @@
   "projectIdentifier": "20180609-house-explainer",
 
   "data": {
-    "content": "./content.json",
+    "content": "./sources/archie.json",
     "pkg": "./package.json"
   },
-
+  "archie": {
+    "googleDocId": "1vBiuJ43nbAs_L5XeUmmq3BhgYnftIw6Dcazj4ZEh6ok",
+    "googleClientId": "971188644461-jiumgc01ma8q5qhhr17ecdaesn1dtev5.apps.googleusercontent.com",
+    "googleClientSecret": "gQa2asnhSoIY7B5c0duLKsT9",
+    "redirectPort": "6006",
+    "exportPath": "./sources/archie.json",
+    "tokenPath": "./archie-token.json"
+  },
   "cms": {
     "id": "NEEDS-CMS-ID-IN-CONFIG.JSON",
     "pages": ["other", "cms-ids"],
