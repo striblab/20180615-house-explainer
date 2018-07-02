@@ -469,11 +469,9 @@ section.body p {
   font-weight:bold;
 }
 
-
 .purple1 { 
   fill:#B191C9;
-  background-color:rgba(177,145,201,0.14); 
-  color:#fff;
+  background-color:rgba(177,145,201,0.09); 
   font-weight:bold;
 }
 
@@ -497,7 +495,6 @@ section.body p {
   font-size: 12px;
   background: transparent;
   margin: 0 0px;
-  margin-top:15px;
   height: 100%;
 }
 
@@ -947,7 +944,7 @@ html[xmlns] .clearfix {
   top: calc(38%);
 }
 .charted.vis-d3-arrow-plot .bc-row {
-  min-height: 18px;
+  min-height: 23px;
 }
 .charted.vis-d3-arrow-plot .bc-bar-inner {
   width: 0;
@@ -1274,7 +1271,7 @@ h1 .charted-title {
 }
 
 /* Mobile styles */
-@media (max-width:700px) {
+@media (max-width:800px) {
   #chartRatings .incumbent, #chartRatings .margin {
     display:none !important;
   }
@@ -1287,5 +1284,11 @@ h1 .charted-title {
   #map-zoomer, #map-zoomer svg {
     width:100% !important;
     height:400px !important;
+  }
+}
+
+@media (max-width:520px) {
+  .axisLabel {
+    margin-left:0 !important;
   }
 }

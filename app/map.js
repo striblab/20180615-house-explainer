@@ -36,13 +36,14 @@ class Map {
     this.svg = d3.select(target + " svg").attr("width", $(target).width()).attr("height", $(target).height());
     this.g = this.svg.append("g");
     this.zoomed = false;
+    this.scaled = $(target).width()/960;
   }
 
   // Detect if the viewport is mobile or desktop, can be tweaked if necessary for anything in between
   _detect_mobile() {
     var winsize = $(window).width();
 
-    if (winsize < 520) { 
+    if (winsize < 750) { 
       return true; 
     } else {
       return false;
@@ -53,30 +54,28 @@ class Map {
   _zoom_out(viewport, d, path) {
     var x, y, k;
     var centered;
-    var width = this.svg.attr('width');
-    var height = this.svg.attr('height');
-    k = 1; 
+    var width = $("#map-zoomer svg").outerWidth();
+    var height = $("#map-zoomer svg").outerHeight();
 
-    console.log(viewport);
-
-    if (viewport) { 
-      k = 0.4;
-    }
+    console.log(width + " " + height);
+    // k = this.scaled;
 
   if (d && centered !== d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
+    k = 1;
     centered = d;
   } else {
     x = width / 2;
     y = height / 2;
+    k = 1;
     centered = null;
   }
 
     // Zoom using transitions
     this.g.transition()
-      .duration(400)
+      .duration(300)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 
       this.zoomed = false;  
@@ -84,17 +83,6 @@ class Map {
 
   // The zooming in interaction
   _zoom_to_mn(viewport, d, path) {
-    // Hard-coded Minnesota zoom settings
-    // if (!viewport) {
-    // var x = 557.078993328558,
-    //   y = 104.72218345871143,
-    //   k = 4;
-    // } else {
-    // var x = 650,
-    //   y = 125,
-    //   k = 3;
-    // }
-
     var x, y, k;
     var centered;
     var width = this.svg.attr('width');
@@ -104,12 +92,14 @@ class Map {
      var centroid = path.centroid(d);
      x = centroid[0];
      y = centroid[1];
-     k = 3;
+     if (viewport) { k = 3.3; }
+     else { k = 4.35; }
      centered = d;
    } else {
      x = width / 2;
      y = height / 2;
-     k = 3;
+     if (viewport) { k = 3.3; }
+     else { k = 4.35; }
      centered = null;
    }
 
@@ -241,8 +231,9 @@ class Map {
   undo_step_2() {
     var self = this;
     // self._zoom_out(self._detect_mobile());
-    if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
-    else { self._clickus('S31'); } //zoom on NE, if desktop
+    // if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
+    // else { self._clickus('S31'); } //zoom on NE, if desktop
+    self._clickus('NATION');
     self.do_step_1();
   }
 
@@ -287,9 +278,6 @@ class Map {
         .style("stroke-width", '0')
         .on("click", function(d) { 
           self._zoom_to_mn(self._detect_mobile(), d, path); 
-        })
-        .on("mouseover", function(d) { 
-          self._zoom_out(self._detect_mobile(), d, path); 
         });
 
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
@@ -306,7 +294,11 @@ class Map {
     // Draw the national boundary separately because district mesh doesn't include it
     self.g.append("path")
         .attr("class", "nation-border")
-        .attr("d", path(topojson.mesh(us, us.objects.nation)));
+        .attr("d", path(topojson.mesh(us, us.objects.nation)))
+        .attr("id","NATION")
+        .on("mouseover", function(d) { 
+          self._zoom_out(self._detect_mobile(), d, path); 
+        });
 
 
     // Draws district labels, present but invisible
