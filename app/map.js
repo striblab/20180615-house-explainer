@@ -33,7 +33,7 @@ class Map {
 
   constructor(target) {
     this.target = target;
-    this.svg = d3.select(target + " svg").attr("width", $(target).width()).attr("height", $(target).height());
+    this.svg = d3.select(target + " svg").attr("width", $(target).outerWidth()).attr("height", $(target).outerHeight());
     this.g = this.svg.append("g");
     this.zoomed = false;
     this.scaled = $(target).width()/960;
@@ -58,20 +58,28 @@ class Map {
     var height = $("#map-zoomer svg").outerHeight();
 
     console.log(width + " " + height);
-    // k = this.scaled;
+    
 
-  if (d && centered !== d) {
+  // if (d && centered !== d) {
+  //   var centroid = path.centroid(d);
+  //   x = centroid[0];
+  //   y = centroid[1];
+  //   k = 1;
+  //   centered = d;
+  // } else {
+  //   x = width / 2;
+  //   y = height / 2;
+  //   k = 1;
+  //   centered = null;
+  // }
+
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-    k = 1;
+    // k = 1;
+    k = this.scaled;
     centered = d;
-  } else {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-  }
+
 
     // Zoom using transitions
     this.g.transition()
@@ -292,10 +300,21 @@ class Map {
 
 
     // Draw the national boundary separately because district mesh doesn't include it
-    self.g.append("path")
+    // self.g.append("path")
+    //     .attr("class", "nation-border")
+    //     .attr("d", path(topojson.mesh(us, us.objects.nation)))
+    //     .attr("id","NATION")
+    //     .on("mouseover", function(d) { 
+    //       self._zoom_out(self._detect_mobile(), d, path); 
+    //     });
+
+    self.g.append("g")
         .attr("class", "nation-border")
-        .attr("d", path(topojson.mesh(us, us.objects.nation)))
-        .attr("id","NATION")
+      .selectAll("path")
+      .data(topojson.feature(us, us.objects.nation).features)
+      .enter().append("path")
+        .attr("d", path)
+        .attr("id", "NATION")
         .on("mouseover", function(d) { 
           self._zoom_out(self._detect_mobile(), d, path); 
         });
