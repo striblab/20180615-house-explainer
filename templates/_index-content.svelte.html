@@ -17,11 +17,11 @@
 
         {#if graf.type == 'component'}
           {#if graf.value.name == 'ScrollyMap'}
-            <ScrollyMap />
+            <ScrollyMap {...props} />
           {:elseif graf.value.name == 'TossupsChart'}
-            <TossupsChart />
+            <TossupsChart {...props} />
           {:elseif graf.value.name == 'CVPIChart'}
-            <CVPIChart />
+            <CVPIChart {...props} />
           {/if}
         {/if}
 
@@ -42,6 +42,11 @@ export default {
     ScrollyMap,
     TossupsChart,
     CVPIChart
+  },
+
+  computed: {
+    // Get all properties.  Easy to pass to sub components
+    props: state => state
   }
 };
 </script>
