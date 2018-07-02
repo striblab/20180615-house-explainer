@@ -54,32 +54,31 @@ class Map {
   _zoom_out(viewport, d, path) {
     var x, y, k;
     var centered;
-    var width = $("#map-zoomer svg").outerWidth();
-    var height = $("#map-zoomer svg").outerHeight();
+    var width = this.svg.attr('width');
+    var height = this.svg.attr('height');
 
     console.log(width + " " + height);
     
 
-  // if (d && centered !== d) {
-  //   var centroid = path.centroid(d);
-  //   x = centroid[0];
-  //   y = centroid[1];
-  //   k = 1;
-  //   centered = d;
-  // } else {
-  //   x = width / 2;
-  //   y = height / 2;
-  //   k = 1;
-  //   centered = null;
-  // }
-
+  if (d && centered !== d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-    // k = 1;
     k = this.scaled;
     centered = d;
+  } else {
+    x = width / 2;
+    y = height / 2;
+    k = this.scaled;
+    centered = null;
+  }
 
+    // var centroid = path.centroid(d);
+    // x = centroid[0];
+    // y = centroid[1];
+    // // k = 1;
+    // k = this.scaled;
+    // centered = d;
 
     // Zoom using transitions
     this.g.transition()
@@ -368,7 +367,7 @@ class Map {
 
     function sizeChange() {
         d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
-        $(self.target + " svg").height($(self.target).width()*0.618);
+        $("#map-zoomer svg").height($("#map-zoomer svg").width()*0.618);
     }
 
     sizeChange();
