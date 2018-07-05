@@ -50,7 +50,7 @@ class ScrollyGraphic {
 
   _handleStepEnter(response) {
     // response = { element, direction, index }
-    
+
     // fade in current step
     step.classed('is-active', function (d, i) {
         return i === response.index;
@@ -112,6 +112,8 @@ class ScrollyGraphic {
   }
 
   init() {
+    var self = this;
+    
     map.render();
 
     // 1. call a resize on load to update width/height/position of elements
@@ -130,10 +132,18 @@ class ScrollyGraphic {
         .onContainerEnter(this._handleContainerEnter)
         .onContainerExit(this._handleContainerExit);
 
-    // setup resize event
-    window.addEventListener('resize', this._handleResize);
+    // Setup resize event but only in the event of width resizing. See similar
+    // code in map.js
+    var cachedWidth = window.innerWidth;
+    d3.select(window).on("resize", function() {
+      var newWidth = window.innerWidth;
+      if(newWidth !== cachedWidth) {
+        self._handleResize();
+        cachedWidth = newWidth;
+      }
+    });
   }
 
 }
 
-export { ScrollyGraphic as default } 
+export { ScrollyGraphic as default }
