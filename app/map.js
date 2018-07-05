@@ -29,7 +29,7 @@ const COMPETITIVE_DISTRICTS = [
   '5308' // Washington
 ];
 
-class Map { 
+class Map {
 
   constructor(target) {
     this.target = target;
@@ -43,8 +43,8 @@ class Map {
   _detect_mobile() {
     var winsize = $(window).width();
 
-    if (winsize < 750) { 
-      return true; 
+    if (winsize < 750) {
+      return true;
     } else {
       return false;
     }
@@ -58,7 +58,7 @@ class Map {
     var height = this.svg.attr('height');
 
     console.log(width + " " + height);
-    
+
 
   if (d && centered !== d) {
     var centroid = path.centroid(d);
@@ -85,7 +85,7 @@ class Map {
       .duration(300)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 
-      this.zoomed = false;  
+      this.zoomed = false;
   }
 
   // The zooming in interaction
@@ -188,7 +188,7 @@ class Map {
       .transition()
       .delay(750)
       .style("fill", '#DCDCDC')
-  } 
+  }
 
   _trigger_district_labels(opacity) {
     // Sets opacity to hide or reveal district labels
@@ -271,8 +271,17 @@ class Map {
 
     var path = d3.geoPath();
 
-    //resize trigger
-    d3.select(window).on("resize", sizeChange);
+    // Only fire resize events in the event of a width change because it prevents
+    // an awful mobile Safari bug and developer rage blackouts.
+    // https://stackoverflow.com/questions/9361968/javascript-resize-event-on-scroll-mobile
+    var cachedWidth = window.innerWidth;
+    d3.select(window).on("resize", function() {
+      var newWidth = window.innerWidth;
+      if(newWidth !== cachedWidth) {
+        sizeChange();
+        cachedWidth = newWidth;
+      }
+    });
 
     // Draw the state boundaries separately, for targeting purposes
     self.g.append("g")
@@ -283,8 +292,8 @@ class Map {
         .attr("d", path)
         .attr("id", function(d) { return "S" + d.properties.STATEFP; } )
         .style("stroke-width", '0')
-        .on("click", function(d) { 
-          self._zoom_to_mn(self._detect_mobile(), d, path); 
+        .on("click", function(d) {
+          self._zoom_to_mn(self._detect_mobile(), d, path);
         });
 
     // Draw the districts based on topojson in ../sources/districts-albers-d3.json
@@ -299,14 +308,6 @@ class Map {
 
 
     // Draw the national boundary separately because district mesh doesn't include it
-    // self.g.append("path")
-    //     .attr("class", "nation-border")
-    //     .attr("d", path(topojson.mesh(us, us.objects.nation)))
-    //     .attr("id","NATION")
-    //     .on("mouseover", function(d) { 
-    //       self._zoom_out(self._detect_mobile(), d, path); 
-    //     });
-
     self.g.append("g")
         .attr("class", "nation-border")
       .selectAll("path")
@@ -314,8 +315,8 @@ class Map {
       .enter().append("path")
         .attr("d", path)
         .attr("id", "NATION")
-        .on("mouseover", function(d) { 
-          self._zoom_out(self._detect_mobile(), d, path); 
+        .on("mouseover", function(d) {
+          self._zoom_out(self._detect_mobile(), d, path);
         });
 
 
@@ -346,7 +347,7 @@ class Map {
         .enter()
         .append("svg:text")
         .text(function(d){
-          if (d.properties.compete == 1) { 
+          if (d.properties.compete == 1) {
             if (d.properties.cpvi < 0) { return "D+" (d.properties.cpvi * -1); }
             else if (d.properties.cpvi > 0) { return "R+" + d.properties.cpvi; }
             else if (d.properties.cpvi == 0) { return "EVEN"; }
@@ -366,8 +367,8 @@ class Map {
 
 
     function sizeChange() {
-        d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
-        $("#map-zoomer svg").height($("#map-zoomer svg").width()*0.618);
+      d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");
+      $("#map-zoomer svg").height($("#map-zoomer svg").width()*0.618);
     }
 
     sizeChange();
