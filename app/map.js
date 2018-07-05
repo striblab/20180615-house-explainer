@@ -29,6 +29,10 @@ const COMPETITIVE_DISTRICTS = [
   '5308' // Washington
 ];
 
+const COLOR_SCALE = d3.scaleOrdinal()
+  .domain(['GOP', 'DEM'])
+  .range(['red', 'blue']);
+
 class Map {
 
   constructor(target) {
@@ -38,6 +42,22 @@ class Map {
     this.zoomed = false;
     this.scaled = $(target).width()/960;
   }
+
+  // Helper method to get the ordinal suffix of a number
+  _get_ordinal_suffix_of(i) {
+     var j = i % 10,
+         k = i % 100;
+     if (j == 1 && k != 11) {
+         return i + "st";
+     }
+     if (j == 2 && k != 12) {
+         return i + "nd";
+     }
+     if (j == 3 && k != 13) {
+         return i + "rd";
+     }
+     return i + "th";
+ }
 
   // Detect if the viewport is mobile or desktop, can be tweaked if necessary for anything in between
   _detect_mobile() {
@@ -186,7 +206,6 @@ class Map {
     // Resets colors to no fill
     this.g.selectAll('.districts path')
       .transition()
-      .delay(750)
       .style("fill", '#DCDCDC')
   }
 
@@ -202,19 +221,26 @@ class Map {
       .style("opacity", opacity)
   }
 
-  _color_districts(district_list, color) {
+  _color_districts(filter, color_scale) {
     // Changes the colors of districts based on a list of GEOIDs and a given color
     this.g.selectAll('.districts path')
-      .filter(function(d) { return district_list.indexOf(d.properties.GEOID) >= 0; })
-      // .filter(function(d) { return d.properties.compete == 1; })
+      // Quick proxy for competitive races. Swap this out.
+      .filter(function(d){ return filter(d);})
       .transition()
-      .delay(750)
-      .style("fill", color)
+      .style("fill", function(d) {
+        return color_scale(d.properties.party);
+      });
   }
 
   do_step_1() {
     var self = this;
-    self._color_districts(COMPETITIVE_DISTRICTS, '#8b62a8');
+
+    // God what have I done
+    function filter_func(d) {
+      return (['Lean D', 'Lean R', 'Tossup D', 'Tossup R'].indexOf(d.properties.rating) >= 0);
+    }
+
+    self._color_districts(filter_func, COLOR_SCALE);
   }
 
   undo_step_1() {
@@ -229,40 +255,62 @@ class Map {
   do_step_2() {
     var self = this;
     self._reset_colors();
-    // self._zoom_to_mn(self._detect_mobile());
-    self._clickmn('S27'); //zoom on MN
-    self._color_districts(['2701', '2708', '2702', '2703'], '#8b62a8');
-    self._trigger_district_labels(1);
+
+    // God what have I done
+    function filter_func(d) {
+      return (['Tossup D', 'Tossup R'].indexOf(d.properties.rating) >= 0);
+    }
+
+    self._color_districts(filter_func, COLOR_SCALE);
   }
 
   undo_step_2() {
     var self = this;
-    // self._zoom_out(self._detect_mobile());
-    // if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
-    // else { self._clickus('S31'); } //zoom on NE, if desktop
-    self._clickus('NATION');
     self.do_step_1();
   }
 
   do_step_3() {
     var self = this;
     self._reset_colors();
-    self._color_districts(['2701', '2708'], '#0258A0');
+    self._clickmn('S27'); //zoom on MN
+
+    function filter_func(d) {
+      return (d.properties.compete == 1 && d.properties.statePostal =='MN');
+    }
+
+    self._color_districts(filter_func, COLOR_SCALE);
+    self._trigger_district_labels(1);
   }
 
   undo_step_3() {
     var self = this;
+    //self._zoom_out(self._detect_mobile());
+    // if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
+    // else { self._clickus('S31'); } //zoom on NE, if desktop
+    self._trigger_district_labels(0);
+    self._clickus('NATION');
     self.do_step_2();
   }
 
   do_step_4() {
     var self = this;
-    self._color_districts(['2702', '2703'], '#C0272D');
+    // self._reset_colors();
+    // self._color_districts(['2701', '2708'], '#0258A0');
   }
 
   undo_step_4() {
     var self = this;
     self.do_step_3();
+  }
+
+  do_step_5() {
+    var self = this;
+    // self._color_districts(['2702', '2703'], '#C0272D');
+  }
+
+  undo_step_5() {
+    var self = this;
+    self.do_step_4();
   }
 
 
@@ -326,7 +374,15 @@ class Map {
         .enter()
         .append("svg:text")
         .text(function(d){
-          if (d.properties.compete == 1 && d.properties.STATEFP == "27") { return d.properties.CD115FP; }
+          if (d.properties.compete == 1 && d.properties.STATEFP == "27") {
+            var label = d.properties.CD115FP;
+            if (label == '08') {
+              label = '8th District';
+            } else {
+              label = self._get_ordinal_suffix_of(label.replace(/^0+/, ''));
+            }
+            return label;
+          }
         })
         .attr("x", function(d){
             return path.centroid(d)[0] - 0.8;

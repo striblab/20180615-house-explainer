@@ -14,6 +14,8 @@ const chart = graphic.select('.chart');
 const text = container.select('.scroll__text');
 const step = text.selectAll('.step');
 
+const step_offset = 1.0;
+
 // Most ScrollyGraphic code is lightly modified boilerplate from here:
 // https://pudding.cool/process/introducing-scrollama/
 
@@ -24,7 +26,7 @@ class ScrollyGraphic {
 
   _handleResize() {
     // 1. update height of step elements for breathing room between steps
-    var stepHeight = Math.floor(window.innerHeight * 0.75);
+    var stepHeight = Math.floor(window.innerHeight * step_offset);
     step.style('height', stepHeight + 'px');
 
     // 2. update height of graphic element
@@ -49,6 +51,8 @@ class ScrollyGraphic {
   }
 
   _handleStepEnter(response) {
+    console.log('Enter: ' + response.index);
+
     // response = { element, direction, index }
 
     // fade in current step
@@ -56,41 +60,54 @@ class ScrollyGraphic {
         return i === response.index;
     })
 
-    if (response.index == 0 && response.direction == 'up' ) {
-      map.undo_step_1();
-    }
+    if (response.direction == 'up') {
 
-    // First transition (highlight competitive states)
-    if (response.index == 1 ) {
-      if (response.direction == 'down') {
-        map.do_step_1();
-      } else {
+      if (response.index == 0) {
+        map.undo_step_1();
+      }
+
+      if (response.index == 1) {
         map.undo_step_2();
       }
-    }
 
-    // Second transition (highlight CA and MN)
-    if (response.index == 3 ) {
-      if (response.direction == 'down') {
-        map.do_step_2();
-      } else {
+      if (response.index == 2) {
         map.undo_step_3();
       }
-    }
 
-    // Third transition (highlight D districts)
-    if (response.index == 5 ) {
-      if (response.direction == 'down') {
-        map.do_step_3();
-      } else {
+      if (response.index == 3) {
         map.undo_step_4();
       }
-    }
 
-    // Final transition (highlight R districts)
-    if (response.index == 7 ) {
-      if (response.direction == 'down') {
+      if (response.index == 4) {
+        map.undo_step_5();
+      }
+
+    }
+  }
+
+  _handleStepExit(response) {
+    console.log('Exit: ' + response.index);
+
+    if (response.direction == 'down') {
+
+      if (response.index == 0) {
+        map.do_step_1();
+      }
+
+      if (response.index == 1) {
+        map.do_step_2();
+      }
+
+      if (response.index == 2) {
+        map.do_step_3();
+      }
+
+      if (response.index == 3) {
         map.do_step_4();
+      }
+
+      if (response.index == 4) {
+        map.do_step_5();
       }
     }
   }
@@ -113,7 +130,7 @@ class ScrollyGraphic {
 
   init() {
     var self = this;
-    
+
     map.render();
 
     // 1. call a resize on load to update width/height/position of elements
@@ -125,10 +142,11 @@ class ScrollyGraphic {
         graphic: '.scroll__graphic', // the graphic
         text: '.scroll__text', // the step container
         step: '.scroll__text .step', // the step elements
-        offset: 0.75, // set the trigger to be 1/2 way down screen
+        offset: step_offset, // set the trigger to be 1/2 way down screen
         debug: false, // display the trigger offset for testing
       })
         .onStepEnter(this._handleStepEnter)
+        .onStepExit(this._handleStepExit)
         .onContainerEnter(this._handleContainerEnter)
         .onContainerExit(this._handleContainerExit);
 

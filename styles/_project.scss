@@ -10,6 +10,7 @@
 
 .scroll__graphic {
   height:auto !important;
+  padding-bottom:25px;
 }
 
 #scroll {
@@ -109,7 +110,7 @@ a:hover {
 }
 
 section.body {
-  padding-top: 30px;
+  padding-top: 20px;
   margin-bottom: 45px;
   max-width: 960px;
   margin-left:auto;
@@ -470,9 +471,9 @@ section.body p {
   font-weight:bold;
 }
 
-.purple1 { 
+.purple1 {
   fill:#B191C9;
-  background-color:rgba(177,145,201,0.09); 
+  background-color:rgba(177,145,201,0.09);
   font-weight:bold;
 }
 
@@ -1291,5 +1292,26 @@ h1 .charted-title {
 @media (max-width:520px) {
   .axisLabel {
     margin-left:0 !important;
+  }
+
+  .scroll__graphic is-fixed {
+    top:0;
+  }
+
+  .scroll__text {
+    width:100%;
+  }
+
+  .step p {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width:100%;
+    font-size:18px;
+    background-color:whitesmoke;
+  }
+
+  .step {
+    position:relative;
+    top:4vh;
   }
 }
