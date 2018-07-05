@@ -63,7 +63,7 @@ class Map {
   _detect_mobile() {
     var winsize = $(window).width();
 
-    if (winsize < 750) {
+    if (winsize < 800) {
       return true;
     } else {
       return false;
@@ -120,13 +120,13 @@ class Map {
      x = centroid[0];
      y = centroid[1];
      if (viewport) { k = 3.3; }
-     else { k = 4.35; }
+     else { k = 4; }
      centered = d;
    } else {
      x = width / 2;
      y = height / 2;
      if (viewport) { k = 3.3; }
-     else { k = 4.35; }
+     else { k = 4; }
      centered = null;
    }
 

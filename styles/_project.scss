@@ -341,12 +341,12 @@ section.body p {
 }
 
 .r4 {
-  background-color: #8C1B17;
-  fill: #8C1B17 !important;
+  background-color: #C0272D;
+  fill: #C0272D !important;
   color: white !important;
   pointer-events: all;
   font-weight: bold;
-  stroke:#8C1B17;
+  stroke:#C0272D;
 }
 
 .r0 {
@@ -356,6 +356,15 @@ section.body p {
   pointer-events: all;
   font-weight: bold;
   stroke:#8C1B17;
+}
+
+.y1 {
+  background-color: #fee090;
+  fill: #fee090 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#fee090; 
 }
 
 .gray3 {
@@ -421,12 +430,12 @@ section.body p {
 }
 
 .d4 {
-  background-color: #3f88c5;
-  fill: #3f88c5 !important;
+  background-color: #0258A0;
+  fill: #0258A0 !important;
   color: white !important;
   pointer-events: all;
   font-weight: bold;
-  stroke:#3f88c5 !important;
+  stroke:#0258A0 !important;
 }
 
 .d0 {
@@ -616,7 +625,7 @@ section.body p {
   font-size: 12px;
 }
 .charted .label span {
-  color: #333 !important;
+  color: #333;
   text-shadow: 0 0 2px #fff;
 }
 .charted .label.inverted span {
@@ -1272,6 +1281,14 @@ h1 .charted-title {
 }
 }
 
+.rHigh {
+  color: #C0272D !important;
+}
+
+.dHigh {
+  color: #0258A0 !important;
+}
+
 /* Mobile styles */
 @media (max-width:800px) {
   #chartRatings .incumbent, #chartRatings .margin {
@@ -1279,6 +1296,11 @@ h1 .charted-title {
   }
   #chartRatings .column {
     font-weight:normal !important;
+  }
+  .container-lg, .scroll__graphic {
+    max-width:100%;
+    width:100% !important;
+    min-width:100% !important;
   }
   .slide {
     width:100% !important;
