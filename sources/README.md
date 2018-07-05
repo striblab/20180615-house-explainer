@@ -2,10 +2,15 @@
 
 First get from [here](https://www.census.gov/geo/maps-data/data/cbf/cbf_cds.html).
 
+Command below also implies that there is a file called races.csv in the same directory that contains some additional race information.
+
 Then:
 
 ```
 shp2json cb_2017_us_cd115_500k.shp | \
+  ndjson-join --left 'd.properties.GEOID' 'd.GEOID' <(ndjson-split 'd.features') <(csv2json -n races.csv) | \
+  ndjson-map 'Object.assign(d[0].properties, d[1]), d[0]' | \
+  ndjson-reduce 'p.features.push(d), p' '{type: "FeatureCollection", features: []}' | \
   geoproject 'd3.geoAlbersUsa()' | \
   geoproject 'd3.geoIdentity().reflectY(false).fitSize([960, 500], d)' | \
   geo2topo districts=- | \
@@ -14,6 +19,7 @@ shp2json cb_2017_us_cd115_500k.shp | \
   toposimplify -f -p 0.5 | \
   topoquantize 1e5 > ./districts-albers-d3.json
 ```
+
 
 ## Notes and useful links
 
