@@ -31,7 +31,7 @@ const COMPETITIVE_DISTRICTS = [
 
 const COLOR_SCALE = d3.scaleOrdinal()
   .domain(['GOP', 'DEM'])
-  .range(['red', 'blue']);
+  .range(['#C0272D', '#0258A0']);
 
 class Map {
 

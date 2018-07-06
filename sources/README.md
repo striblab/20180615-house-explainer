@@ -1,25 +1,6 @@
 # How to make Congressional district SVG
 
-First get from [here](https://www.census.gov/geo/maps-data/data/cbf/cbf_cds.html).
-
-Command below also implies that there is a file called races.csv in the same directory that contains some additional race information.
-
-Then:
-
-```
-shp2json cb_2017_us_cd115_500k.shp | \
-  ndjson-join --left 'd.properties.GEOID' 'd.GEOID' <(ndjson-split 'd.features') <(csv2json -n races.csv) | \
-  ndjson-map 'Object.assign(d[0].properties, d[1]), d[0]' | \
-  ndjson-reduce 'p.features.push(d), p' '{type: "FeatureCollection", features: []}' | \
-  geoproject 'd3.geoAlbersUsa()' | \
-  geoproject 'd3.geoIdentity().reflectY(false).fitSize([960, 500], d)' | \
-  geo2topo districts=- | \
-  topomerge states=districts -k 'd.properties.STATEFP' | \
-  topomerge nation=states -k '1' | \
-  toposimplify -f -p 0.5 | \
-  topoquantize 1e5 > ./districts-albers-d3.json
-```
-
+Run `./get_map.sh`. It will download a source file from [here](https://www.census.gov/geo/maps-data/data/cbf/cbf_cds.html). Also assumes there is a file called races.csv in this directory that contains some additional race information.
 
 ## Notes and useful links
 
