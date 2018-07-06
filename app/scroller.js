@@ -24,6 +24,8 @@ class ScrollyGraphic {
   constructor() {
   }
 
+  /********** PRIVATE METHODS **********/
+
   _handleResize() {
     // 1. update height of step elements for breathing room between steps
     var stepHeight = Math.floor(window.innerHeight * step_offset);
@@ -64,22 +66,6 @@ class ScrollyGraphic {
         map.undo_step_1();
       }
 
-      if (response.index == 1) {
-        map.undo_step_2();
-      }
-
-      if (response.index == 2) {
-        map.undo_step_3();
-      }
-
-      if (response.index == 3) {
-        map.undo_step_4();
-      }
-
-      if (response.index == 4) {
-        map.undo_step_5();
-      }
-
     }
   }
 
@@ -106,6 +92,33 @@ class ScrollyGraphic {
         map.do_step_5();
       }
     }
+
+    if (response.direction == 'up') {
+
+      if (response.index == 0) {
+        // Another terrible hack, but recenters the thing on mobile if
+        // we choose to deploy it.
+
+        // map.destroy();
+        // map.render();
+      }
+
+      if (response.index == 1) {
+        map.undo_step_2();
+      }
+
+      if (response.index == 2) {
+        map.undo_step_3();
+      }
+
+      if (response.index == 3) {
+        map.undo_step_4();
+      }
+
+      if (response.index == 4) {
+        map.undo_step_5();
+      }
+    }
   }
 
   _handleContainerEnter(response) {
@@ -123,6 +136,8 @@ class ScrollyGraphic {
     graphic.classed('is-fixed', false);
     graphic.classed('is-bottom', response.direction === 'down');
   }
+
+  /********** PUBLIC METHODS **********/
 
   init() {
     var self = this;

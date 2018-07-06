@@ -16,6 +16,8 @@ class Map {
     this.scaled = $(target).width()/960;
   }
 
+  /********** PRIVATE METHODS **********/
+
   // Helper method to get the ordinal suffix of a number
   _get_ordinal_suffix_of(i) {
      var j = i % 10,
@@ -175,6 +177,14 @@ class Map {
       .style("fill", '#DCDCDC')
   }
 
+  _reset_opacity() {
+    // Resets colors to no fill
+    this.g.selectAll('.districts path')
+      .transition()
+      .duration(0)
+      .style("opacity", '1')
+  }
+
   _trigger_district_labels(opacity) {
     // Sets opacity to hide or reveal district labels
     this.g.selectAll('.district-label')
@@ -198,7 +208,7 @@ class Map {
       });
   }
 
-  _flash_district(filter) {
+  _flash_districts(filter) {
     var self = this;
     // Flash on
     this.g.selectAll('.districts path')
@@ -211,6 +221,9 @@ class Map {
         .style("opacity", '1');
   }
 
+  /********** PUBLIC METHODS **********/
+
+  // First step in scroller. Highlight competitive districts.
   do_step_1() {
     var self = this;
 
@@ -222,6 +235,7 @@ class Map {
     self._color_districts(filter_func, COLOR_SCALE);
   }
 
+  // Undo first step and reset map
   undo_step_1() {
     var self = this;
     self._reset_colors();
@@ -231,6 +245,7 @@ class Map {
     self._trigger_cpvi_labels(0);
   }
 
+  // Second step in scroller. Show tossups.
   do_step_2() {
     var self = this;
     self._reset_colors();
@@ -243,11 +258,13 @@ class Map {
     self._color_districts(filter_func, COLOR_SCALE);
   }
 
+  // Undo second step
   undo_step_2() {
     var self = this;
     self.do_step_1();
   }
 
+  // Third step in scroller. Zoom to MN.
   do_step_3() {
     var self = this;
     self._reset_colors();
@@ -261,40 +278,54 @@ class Map {
     self._trigger_district_labels(1);
   }
 
+  // Undo third step. Zoom out to nation.
   undo_step_3() {
     var self = this;
+    self._reset_opacity();
     self._trigger_district_labels(0);
     self._clickus('NATION');
     self.do_step_2();
   }
 
+  // Fourth step in scroller. Flash democratic districts.
   do_step_4() {
     var self = this;
     function filter_func(d) {
       return (['2701', '2708'].indexOf(d.properties.GEOID) >= 0);
     }
-    self._flash_district(filter_func, '#0258A0');
+    self._flash_districts(filter_func, '#0258A0');
   }
 
+  // Flash them again on undo.
   undo_step_4() {
     var self = this;
     self.do_step_4();
   }
 
+  // Last step in scroller. Flash Republican districts.
   do_step_5() {
     var self = this;
     function filter_func(d) {
       return (['2702', '2703'].indexOf(d.properties.GEOID) >= 0);
     }
-    self._flash_district(filter_func, '#C0272D');
+    self._flash_districts(filter_func, '#C0272D');
   }
 
+  // Flash again
   undo_step_5() {
     var self = this;
     self.do_step_5();
   }
 
+  destroy() {
+    console.log('destroy!');
+    this.svg.selectAll('g.states').remove();
+    this.svg.selectAll('g.districts').remove();
+    this.svg.selectAll('g.nation-border').remove();
+    this.svg.selectAll('text.district-label').remove();
+  }
 
+  // Render the map
   render() {
     var self = this;
 
@@ -374,6 +405,7 @@ class Map {
         .attr("class", "district-label")
         .attr("text-anchor", "middle")
         .style("fill", "#ffffff")
+        .attr("font-weight", "bold")
         .style("opacity", 0)
         .attr("font-size", "2pt");
 
@@ -401,7 +433,6 @@ class Map {
         .style("fill", "#ffffff")
         .style("opacity", 0)
         .attr("font-size", "2pt");
-
 
     function sizeChange() {
       d3.select("g").attr("transform", "scale(" + $(self.target).width()/960 + ")");

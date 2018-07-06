@@ -7,7 +7,4 @@ import ScrollyGraphic from './scroller.js';
 (function(){
     let s = new ScrollyGraphic();
     s.init();
-
-})(); 
-
-
+})();
