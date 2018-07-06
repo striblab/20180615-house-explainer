@@ -52,26 +52,23 @@ class Map {
     var width = this.svg.attr('width');
     var height = this.svg.attr('height');
 
-    console.log(width + " " + height);
-
-
-  if (d && centered !== d) {
-    var centroid = path.centroid(d);
-    x = centroid[0];
-    y = centroid[1];
-    k = this.scaled;
-    centered = d;
-  } else {
-    x = width / 2;
-    y = height / 2;
-    k = this.scaled;
-    centered = null;
-  }
+    if (!viewport) {
+      x = width / 2;
+      y = height / 2;
+      k = this.scaled;
+      centered = null;
+    } else {
+      var centroid = path.centroid(d);
+      k = this.scaled;
+      centered = d;
+      console.log(x + " " + y);
+      console.log(width + " " + height);
+    }
 
     // Zoom using transitions
     this.g.transition()
       .duration(300)
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .attr("transform", "scale(" + k + ")")
 
       this.zoomed = false;
   }
