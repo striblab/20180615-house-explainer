@@ -148,10 +148,13 @@ section.body p {
   width:700px;
   margin-left:auto;
   margin-right:auto;
+  margin-top:40px;
+  margin-bottom:40px;
 
 .chatter {
   font-size:0.8em;
   font-family: "Benton Sans", Helvetica, Arial, sans-serif !important;
+  color:#333;
 }
 
 .byline {
@@ -176,7 +179,7 @@ section.body p {
 }
 
 .chartTitle {
-  font-size:1.5em;
+  font-size:1.2em;
   font-weight:900;
 }
 
@@ -204,6 +207,7 @@ section.body p {
  #chartRatings .th .column {
      font-weight:bold;
      margin-bottom:7px;
+     vertical-align:bottom;
  }
 #chartRatings .column {
      display: table-cell;
@@ -315,12 +319,12 @@ section.body p {
 }
 
 .r1 {
-  background-color: #C68985;
-  fill: #C68985 !important;
+  background-color: #D97D80;
+  fill: #D97D80 !important;
   color: white !important;
   pointer-events: all;
   font-weight: bold;
-  stroke:#C68985;
+  stroke:#D97D80;
 }
 
 .r2 {
@@ -365,7 +369,7 @@ section.body p {
   color: white !important;
   pointer-events: all;
   font-weight: bold;
-  stroke:#fee090; 
+  stroke:#fee090;
 }
 
 .gray3 {
