@@ -2,33 +2,6 @@ import * as d3 from 'd3';
 import * as topojson from "topojson";
 import us from '../sources/districts-albers-d3.json';
 
-// Should just mark these in topojson, but putting them here for now
-const COMPETITIVE_DISTRICTS = [
-  '2701', // Minnesota
-  '2708',
-  '2702',
-  '2703',
-  '0610', // California
-  '0625',
-  '0639',
-  '0638',
-  '0806', // Colorado
-  '1226', // Florida
-  '1901', // Iowa
-  '1706', // Illinois
-  '1712',
-  '2611', // Michigan
-  '3407', // New Jersey
-  '3619', // New York
-  '3622',
-  '3912', // Ohio
-  '4201', // Pennsylvania
-  '4217',
-  '4807', // Texas
-  '5110', // Virginia
-  '5308' // Washington
-];
-
 const COLOR_SCALE = d3.scaleOrdinal()
   .domain(['GOP', 'DEM'])
   .range(['#C0272D', '#0258A0']);
@@ -92,13 +65,6 @@ class Map {
     k = this.scaled;
     centered = null;
   }
-
-    // var centroid = path.centroid(d);
-    // x = centroid[0];
-    // y = centroid[1];
-    // // k = 1;
-    // k = this.scaled;
-    // centered = d;
 
     // Zoom using transitions
     this.g.transition()
@@ -232,6 +198,19 @@ class Map {
       });
   }
 
+  _flash_district(filter) {
+    var self = this;
+    // Flash on
+    this.g.selectAll('.districts path')
+      .filter(function(d){ return filter(d);})
+      .transition()
+        .duration(400)
+        .style("opacity", '0.5')
+      .transition()
+        .duration(400)
+        .style("opacity", '1');
+  }
+
   do_step_1() {
     var self = this;
 
@@ -284,9 +263,6 @@ class Map {
 
   undo_step_3() {
     var self = this;
-    //self._zoom_out(self._detect_mobile());
-    // if(self._detect_mobile()) { self._clickus('S48'); } //zoom on OK, if mobile
-    // else { self._clickus('S31'); } //zoom on NE, if desktop
     self._trigger_district_labels(0);
     self._clickus('NATION');
     self.do_step_2();
@@ -294,23 +270,28 @@ class Map {
 
   do_step_4() {
     var self = this;
-    // self._reset_colors();
-    // self._color_districts(['2701', '2708'], '#0258A0');
+    function filter_func(d) {
+      return (['2701', '2708'].indexOf(d.properties.GEOID) >= 0);
+    }
+    self._flash_district(filter_func, '#0258A0');
   }
 
   undo_step_4() {
     var self = this;
-    self.do_step_3();
+    self.do_step_4();
   }
 
   do_step_5() {
     var self = this;
-    // self._color_districts(['2702', '2703'], '#C0272D');
+    function filter_func(d) {
+      return (['2702', '2703'].indexOf(d.properties.GEOID) >= 0);
+    }
+    self._flash_district(filter_func, '#C0272D');
   }
 
   undo_step_5() {
     var self = this;
-    self.do_step_4();
+    self.do_step_5();
   }
 
 

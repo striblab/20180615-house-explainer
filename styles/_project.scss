@@ -55,7 +55,8 @@
   font-family:'Benton Sans';
   font-size:0.9em;
   position:relative;
-  background-color:white;
+  background-color:#f7f7f7;
+  border:2px solid #80817c;
   padding:20px 20px 20px 20px;
   max-width:525px;
 }
@@ -1325,11 +1326,8 @@ h1 .charted-title {
   }
 
   .step p {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
     width:100%;
-    font-size:18px;
-    background-color:whitesmoke;
+    font-size:16px;
   }
 
   .step {

@@ -51,8 +51,6 @@ class ScrollyGraphic {
   }
 
   _handleStepEnter(response) {
-    console.log('Enter: ' + response.index);
-
     // response = { element, direction, index }
 
     // fade in current step
@@ -86,8 +84,6 @@ class ScrollyGraphic {
   }
 
   _handleStepExit(response) {
-    console.log('Exit: ' + response.index);
-
     if (response.direction == 'down') {
 
       if (response.index == 0) {
