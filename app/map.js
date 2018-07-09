@@ -226,7 +226,7 @@ class Map {
 
     // God what have I done
     function filter_func(d) {
-      return (['Lean D', 'Lean R', 'Tossup D', 'Tossup R'].indexOf(d.properties.rating) >= 0);
+      return (d.properties.compete == 1);
     }
 
     self._color_districts(filter_func, COLOR_SCALE);
@@ -249,7 +249,7 @@ class Map {
 
     // God what have I done
     function filter_func(d) {
-      return (['Tossup D', 'Tossup R'].indexOf(d.properties.rating) >= 0);
+      return (d.properties.tossup == 1);
     }
 
     self._color_districts(filter_func, COLOR_SCALE);
@@ -268,7 +268,7 @@ class Map {
     self._clickmn('S27'); //zoom on MN
 
     function filter_func(d) {
-      return (d.properties.compete == 1 && d.properties.statePostal =='MN');
+      return (d.properties.tossup == 1 && d.properties.statePostal =='MN');
     }
 
     self._color_districts(filter_func, COLOR_SCALE);
@@ -383,7 +383,7 @@ class Map {
         .enter()
         .append("svg:text")
         .text(function(d){
-          if (d.properties.compete == 1 && d.properties.STATEFP == "27") {
+          if (d.properties.tossup == 1 && d.properties.STATEFP == "27") {
             var label = d.properties.CD115FP;
             if (label == '08') {
               label = '8th District';
@@ -413,7 +413,7 @@ class Map {
         .enter()
         .append("svg:text")
         .text(function(d){
-          if (d.properties.compete == 1) {
+          if (d.properties.tossup == 1) {
             if (d.properties.cpvi < 0) { return "D+" (d.properties.cpvi * -1); }
             else if (d.properties.cpvi > 0) { return "R+" + d.properties.cpvi; }
             else if (d.properties.cpvi == 0) { return "EVEN"; }

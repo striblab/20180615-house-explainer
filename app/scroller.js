@@ -60,13 +60,13 @@ class ScrollyGraphic {
         return i === response.index;
     })
 
-    if (response.direction == 'up') {
-
-      if (response.index == 0) {
-        map.undo_step_1();
-      }
-
-    }
+    // if (response.direction == 'up') {
+    //
+    //   if (response.index == 0) {
+    //     map.undo_step_1();
+    //   }
+    //
+    // }
   }
 
   _handleStepExit(response) {
@@ -94,14 +94,6 @@ class ScrollyGraphic {
     }
 
     if (response.direction == 'up') {
-
-      if (response.index == 0) {
-        // Another terrible hack, but recenters the thing on mobile if
-        // we choose to deploy it.
-
-        // map.destroy();
-        // map.render();
-      }
 
       if (response.index == 1) {
         map.undo_step_2();
@@ -131,6 +123,10 @@ class ScrollyGraphic {
 
   _handleContainerExit(response) {
     // response = { direction }
+
+    if (response.direction == 'up') {
+      map.undo_step_1();
+    }
 
     // un-sticky the graphic, and pin to top/bottom of container
     graphic.classed('is-fixed', false);
