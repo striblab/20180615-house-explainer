@@ -116,6 +116,10 @@ class ScrollyGraphic {
   _handleContainerEnter(response) {
     // response = { direction }
 
+    d3.select(".scroll__graphic .byline")
+      .transition()
+      .style('visibility', 'hidden');
+
     // sticky the graphic
     graphic.classed('is-fixed', true);
     graphic.classed('is-bottom', false);
