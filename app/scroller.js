@@ -124,6 +124,10 @@ class ScrollyGraphic {
   _handleContainerExit(response) {
     // response = { direction }
 
+    d3.select(".scroll__graphic .byline")
+      .transition()
+      .style('visibility', 'visible');
+
     if (response.direction == 'up') {
       map.undo_step_1();
     }

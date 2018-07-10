@@ -24,6 +24,17 @@
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+  
+  .byline {
+      line-height:140%;
+      font-family: "Benton Sans", Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size:0.6em;
+      color: #888;
+      padding-top:10px;
+      padding-bottom:10px;
+      text-align:left;
+  }
 }
 
 .scroll__graphic.is-fixed {

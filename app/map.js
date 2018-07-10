@@ -224,6 +224,10 @@ class Map {
   do_step_1() {
     var self = this;
 
+    d3.select(".scroll__graphic .byline")
+      .transition()
+      .style('visibility', 'hidden');
+
     // God what have I done
     function filter_func(d) {
       return (d.properties.compete == 1);
@@ -311,6 +315,9 @@ class Map {
   // Flash again
   undo_step_5() {
     var self = this;
+    d3.select(".scroll__graphic .byline")
+      .transition()
+      .style('visibility', 'hidden');
     self.do_step_5();
   }
 
