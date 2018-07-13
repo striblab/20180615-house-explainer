@@ -45,6 +45,45 @@ class Map {
     }
   }
 
+  _render_legend() {
+    var self = this;
+
+    var legend = self.g.append("g")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+      .attr("text-anchor", "end")
+      .selectAll("g")
+      .data(COLOR_SCALE.domain())
+      .enter().append("g")
+      .attr("transform", function(d, i) {
+        return "translate(0," + i * 20 + ")";
+      });
+
+    //append legend colour blocks
+    legend.append("rect")
+      .attr("x", 900 - 400)
+      .attr("y", 500 - 50)
+      .attr("width", 19)
+      .attr("height", 19)
+      .attr('fill', function(d) {
+          return COLOR_SCALE(d);
+      });
+
+    //append legend texts
+    legend.append("text")
+      .attr("x", 900 - 260)
+      .attr("y", 500 - 40)
+      .attr("dy", "0.32em")
+      .text(function(d) {
+        if (d == 'GOP') {
+          return 'Republican-controlled seat'
+        }
+        if (d == 'DEM') {
+          return 'Democratic-controlled seat'
+        }
+      });
+  }
+
   // The zooming out interaction
   _zoom_out(viewport, d, path) {
     var x, y, k;
@@ -223,7 +262,7 @@ class Map {
   // First step in scroller. Highlight competitive districts.
   do_step_1() {
     var self = this;
-    
+
     // God what have I done
     function filter_func(d) {
       return (d.properties.compete == 1);
@@ -327,6 +366,8 @@ class Map {
     var self = this;
 
     var path = d3.geoPath();
+
+    // self._render_legend();
 
     // Only fire resize events in the event of a width change because it prevents
     // an awful mobile Safari bug and developer rage blackouts.
