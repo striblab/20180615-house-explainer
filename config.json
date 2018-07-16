@@ -55,6 +55,12 @@
       "path": "news/projects/all/20180609-house-explainer",
       "url": "http://static.startribune.com/news/projects/all/20180609-house-explainer/",
       "cacheSeconds": 600
+    },
+    "staging": {
+      "bucket": "static.startribune.com",
+      "path": "staging/news/projects/all/20180609-house-explainer",
+      "url": "http://static.startribune.com/staging/news/projects/all/20180609-house-explainer/",
+      "cacheSeconds": 30
     }
   }
 }
