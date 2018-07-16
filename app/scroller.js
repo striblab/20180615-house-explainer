@@ -86,6 +86,8 @@ class ScrollyGraphic {
   _handleStepProgress(response) {
     // response = { direction }
 
+    // console.log(response.progress);
+
     // Hack to satisfy a design request to trigger the steps before the steps leave
     // the frame. Must be an easier way to do this, because this is terrible.
     if (response.progress >= 0.8) {
@@ -121,7 +123,7 @@ class ScrollyGraphic {
       }
     }
 
-    if (response.progress <= 0.2) {
+    if (response.progress <= 0.4) {
 
       if (graphic.classed('step-up')) {
 
@@ -204,7 +206,7 @@ class ScrollyGraphic {
         step: '.scroll__text .step', // the step elements
         offset: step_offset, // set the trigger to be 1/2 way down screen
         debug: false, // display the trigger offset for testing
-        threshold: 10,
+        threshold: 5,
         progress: true
       })
         .onStepEnter(this._handleStepEnter)
