@@ -1,7 +1,7 @@
 wget http://www2.census.gov/geo/tiger/GENZ2017/shp/cb_2017_us_cd115_500k.zip && \
   unzip cb_2017_us_cd115_500k.zip && \
   shp2json cb_2017_us_cd115_500k.shp | \
-  ndjson-join --left 'd.properties.GEOID' 'd.GEOID' <(ndjson-split 'd.features') <(csv2json -n races090418.csv) | \
+  ndjson-join --left 'd.properties.GEOID' 'd.GEOID' <(ndjson-split 'd.features') <(csv2json -n races092218.csv) | \
   ndjson-map 'Object.assign(d[0].properties, d[1]), d[0]' | \
   ndjson-reduce 'p.features.push(d), p' '{type: "FeatureCollection", features: []}' | \
   geoproject 'd3.geoAlbersUsa()' | \
